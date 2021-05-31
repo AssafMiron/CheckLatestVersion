@@ -13,11 +13,12 @@ $ScriptLocation = Split-Path -Parent $ScriptFullPath
 $ScriptVersion = "1.0"
 
 Write-Information -MessageData "Starting the script"
+Import-Module .\LatestVersionCheck.psd1
 
 $gitHubLatestVersionParameters = @{
     currentVersion = $ScriptVersion;
-    repositoryName = "AssafMiron/LatestVersionCheck";
-    scriptVersionFileName = "SampleScript";
+    repositoryName = "AssafMiron/CheckLatestVersion";
+    scriptVersionFileName = "SampleScript.ps1";
     sourceFolderPath = $ScriptLocation;
     
     # More parameters that can be used
