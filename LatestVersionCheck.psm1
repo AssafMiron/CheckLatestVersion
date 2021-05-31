@@ -37,7 +37,7 @@ Function Test-ScriptLatestVersion
         If($($getScriptContent -match "$versionPattern\s{0,1}=\s{0,1}\""([\d\.]{1,10})\"""))
 	    {
             $gitHubScriptVersion = $Matches[1]
-            Write-Information -MessageData "Current Version: $currentVersion; GitHub Version: $gitHubScriptVersion"
+            Write-Host "Current Version: $currentVersion; GitHub Version: $gitHubScriptVersion"
             # Get a Major-Minor number format
             $gitHubMajorMinor = [double]($gitHubScriptVersion.Split(".")[0..1] -join '.')
             $currentMajorMinor = [double]($currentVersion.Split(".")[0..1] -join '.')
@@ -204,7 +204,7 @@ param (
         If($downloadLatestVersion -and (! $TestOnly))
         {
             $retLatestVersion = $false
-            Write-Information -MessageData "Found new version, Updating..."
+            Write-Host "Found new version, Updating..."
             # Create a new tmp folder to download all files to
             $tmpFolder = Join-Path -path $sourceFolderPath -ChildPath "tmp"
             if(! (Test-Path -path $tmpFolder))
@@ -228,7 +228,7 @@ param (
         }
         Else
         {
-            Write-Information -MessageData  "Current version ($currentVersion) is the latest!"
+            Write-Host  "Current version ($currentVersion) is the latest!"
         }
     }
     catch
