@@ -37,9 +37,10 @@ If(! $SkipVersionCheck)
 		If($isLatestVersion -eq $false)
 		{
             # Skip the version check so we don't get into a loop
-            $command = "$ScriptFullPath -SkipVersionCheck"
+            $command = "$ScriptFullPath -SkipVersionCheck:$true"
 			# Run the updated script
-			$scriptPathAndArgs = "powershell.exe -NoLogo -File `"$command`" "
+			$scriptPathAndArgs = "powershell.exe -NoLogo -File `"$ScriptFullPath`" -SkipVersionCheck"
+			# $scriptPathAndArgs = "powershell.exe -NoLogo -File `"$command`" "
 			Write-Host "Finished Updating, relaunching the script"
 			Invoke-Expression $scriptPathAndArgs
 			# Exit the current script
