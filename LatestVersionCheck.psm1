@@ -114,15 +114,13 @@ Function Copy-GitHubContent
                 $itemDir = Join-Path -Path $outputFolderPath -ChildPath $item.name
                 if(! (Test-Path -path $itemDir))
                 {
-                    New-Item -ItemType Directory -Path $itemDir
+                    New-Item -ItemType Directory -Path $itemDir | Out-Null
                 }		
                 # Get all relevant files from the folder
                 Copy-GitHubContent -outputFolderPath $itemDir -gitHubItemURL $item.url
             }
             elseif ($item.type -eq "file") {
-                # $getFileContent = (Invoke-WebRequest -UseBasicParsing -Uri ($item.download_url)).Content
                 Invoke-WebRequest -UseBasicParsing -Uri ($item.download_url) -OutFile $(Join-Path -Path $outputFolderPath -ChildPath $item.name)
-                # $getFileContent | Out-File -FilePath $(Join-Path -Path $outputFolderPath -ChildPath $item.name)
             }
         }
     }
@@ -258,7 +256,7 @@ param (
                 $tmpFolder = Join-Path -path $sourceFolderPath -ChildPath "tmp"
                 if(! (Test-Path -path $tmpFolder))
                 {
-                    New-Item -ItemType Directory -Path $tmpFolder
+                    New-Item -ItemType Directory -Path $tmpFolder | Out-Null
                 }
                 try{
                     # Download the entire folder (files and directories) to the tmp folder
@@ -266,7 +264,7 @@ param (
                     # Replace the current folder content
                     Replace-Item -Recurse -Path $tmpFolder -Destination $sourceFolderPath
                     # Remove tmp folder
-                    Remove-Item -Recurse -Path $tmpFolder -Force | Out-Null
+                    Remove-Item -Recurse -Path $tmpFolder -Force
                 }
                 catch
                 {
