@@ -133,7 +133,7 @@ Function Replace-Item
         [string]$Path,
         [Parameter(Mandatory=$true)]
         [ValidateScript({Test-Path $_})]
-        [switch]$Destination,
+        [string]$Destination,
         [Parameter(Mandatory=$false)]
         [switch]$Recurse
     )
