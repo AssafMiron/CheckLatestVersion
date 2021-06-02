@@ -13,7 +13,7 @@ $ScriptLocation = Split-Path -Parent $ScriptFullPath
 $ScriptVersion = "1.0"
 
 Write-Host "Starting the script"
-$moduleInfo = Import-Module .\LatestVersionCheck.psd1
+Import-Module .\LatestVersionCheck.psd1
 
 $gitHubLatestVersionParameters = @{
     currentVersion = $ScriptVersion;
@@ -37,7 +37,6 @@ If(! $SkipVersionCheck)
 		If($isLatestVersion -eq $false)
 		{
             # Skip the version check so we don't get into a loop
-			# $scriptPathAndArgs = "powershell.exe -NoLogo -File `"$ScriptFullPath`" -SkipVersionCheck"
 			$scriptPathAndArgs = "& `"$ScriptFullPath`" -SkipVersionCheck"
 			Write-Host "Finished Updating, relaunching the script"
 			# Run the updated script
@@ -57,6 +56,6 @@ If($(Test-GitHubLatestVersion @gitHubLatestVersionParameters -TestOnly))
 {
     Write-Host "This is the latest script version"
 }
-Remove-Module $moduleInfo
+Remove-Module LatestVersionCheck
 Write-Host "Script ended"
 
