@@ -22,7 +22,7 @@ $gitHubLatestVersionParameters = @{
     sourceFolderPath = $ScriptLocation;
     
     # More parameters that can be used
-    # repositoryFolderPath = "CYBRHardeningCheck";
+    # repositoryFolderPath = "FolderName";
     # branch = "main";
     # versionPattern = "ScriptVersion";
 }
