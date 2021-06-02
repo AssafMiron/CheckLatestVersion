@@ -120,8 +120,9 @@ Function Copy-GitHubContent
                 Copy-GitHubContent -outputFolderPath $itemDir -gitHubItemURL $item.url
             }
             elseif ($item.type -eq "file") {
-                $getFileContent = (Invoke-WebRequest -UseBasicParsing -Uri ($item.download_url)).Content
-                $getFileContent | Out-File -FilePath $(Join-Path -Path $outputFolderPath -ChildPath $item.name)
+                # $getFileContent = (Invoke-WebRequest -UseBasicParsing -Uri ($item.download_url)).Content
+                Invoke-WebRequest -UseBasicParsing -Uri ($item.download_url) -OutFile $(Join-Path -Path $outputFolderPath -ChildPath $item.name)
+                # $getFileContent | Out-File -FilePath $(Join-Path -Path $outputFolderPath -ChildPath $item.name)
             }
         }
     }
@@ -265,7 +266,7 @@ param (
                     # Replace the current folder content
                     Replace-Item -Recurse -Path $tmpFolder -Destination $sourceFolderPath
                     # Remove tmp folder
-                    Remove-Item -Recurse -Path $tmpFolder -Force
+                    Remove-Item -Recurse -Path $tmpFolder -Force | Out-Null
                 }
                 catch
                 {
