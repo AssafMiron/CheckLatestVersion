@@ -142,11 +142,10 @@ Function Replace-Item
         foreach($item in $(Get-ChildItem -Recurse:$Recurse -Path $Path))
         {
             $destPath = split-path -path $item.fullName.Replace($Path, $Destination) -Parent
-            # $newName = "$($item.name).NEW"
             $oldName = "$($item.name).OLD"
             if(Test-Path -Path $(Join-Path -path $destPath -ChildPath $item.name))
             {
-                Rename-Item -Path $item.fullname -NewName $oldName
+                Rename-Item -Path $(Join-Path -path $destPath -ChildPath $item.name) -NewName $oldName
                 Copy-Item -path $item.fullname -Destination $(Join-Path -path $destPath -ChildPath $item.name)
                 Remove-Item -path $(Join-Path -path $destPath -ChildPath $oldName)
             }
