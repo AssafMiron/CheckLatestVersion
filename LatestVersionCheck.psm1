@@ -124,6 +124,45 @@ Function Copy-GitHubContent
     }
 }
 
+Function Replace-Item
+{
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true)]
+        [ValidateScript({Test-Path $_})]
+        [string]$Path,
+        [Parameter(Mandatory=$true)]
+        [ValidateScript({Test-Path $_})]
+        [switch]$Destination,
+        [Parameter(Mandatory=$false)]
+        [switch]$Recurse
+    )
+
+    try{
+        foreach($item in $(Get-ChildItem -Recurse:$Recurse -Path $Path))
+        {
+            $destPath = split-path -path $item.fullName.Replace($Path, $Destination) -Parent
+            # $newName = "$($item.name).NEW"
+            $oldName = "$($item.name).OLD"
+            if(Test-Path -Path $(Join-Path -path $destPath -ChildPath $item.name))
+            {
+                Rename-Item -Path $item.fullname -NewName $oldName
+                Copy-Item -path $item.fullname -Destination $(Join-Path -path $destPath -ChildPath $item.name)
+                Remove-Item -path $(Join-Path -path $destPath -ChildPath $oldName)
+            }
+            Else
+			{
+				Write-Error "Can't find file $($item.name) in destination location '$destPath' to replace, copying"
+                Copy-Item -path $item.fullname -Destination $destPath
+			}
+        }
+    }
+    catch{
+        Throw $(New-Object System.Exception ("eplace-Item: Couldn't Replace files",$_.Exception))
+    }
+
+}
+
 # @FUNCTION@ ======================================================================================================================
 # Name...........: Test-GitHubLatestVersion
 # Description....: Tests if the script is running the latest version from GitHub
@@ -215,7 +254,7 @@ param (
                 # Download the entire folder (files and directories) to the tmp folder
                 Copy-GitHubContent -outputFolderPath $tmpFolder -gitHubItemURL $apiURL
                 # Replace the current folder content
-                Copy-Item -Recurse -Path $tmpFolder -Destination $ScriptLocation -Force
+                Replace-Item -Recurse -Path $tmpFolder -Destination $sourceFolderPath
                 # Remove tmp folder
                 Remove-Item -Recurse -Path $tmpFolder -Force
             }
