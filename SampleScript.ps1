@@ -50,8 +50,6 @@ If(! $SkipVersionCheck)
 }
 
 Write-Host "This is the current script version $ScriptVersion, checking script version from GitHub"
-# Revert the current version to the script version
-$gitHubLatestVersionParameters.currentVersion = $ScriptVersion
 If($(Test-GitHubLatestVersion @gitHubLatestVersionParameters -TestOnly))
 {
     Write-Host "This is the latest script version"
