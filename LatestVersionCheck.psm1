@@ -203,6 +203,42 @@ Function Test-GitHubLatestVersion
 .PARAMETER TestOnly
     Switch parameter to perform only test
     If not exclusively selected, the function will update the script if a new version is found
+.EXAMPLE
+    $gitHubLatestVersionParameters = @{
+    currentVersion = $ScriptVersion;
+    repositoryName = "MyUser/MyRepo";
+    scriptVersionFileName = "MyScript.ps1";
+    sourceFolderPath = $ScriptLocation;
+}
+    $isLatestVersion = $(Test-GitHubLatestVersion @gitHubLatestVersionParameters)
+    if($isLatestVersion) {
+        Write-Host "Script was checked and updated to the latest version"
+    }
+.EXAMPLE
+    $gitHubLatestVersionParameters = @{
+    currentVersion = $ScriptVersion;
+    repositoryName = "MyUser/MyRepo";
+    scriptVersionFileName = "MyScript.ps1";
+    sourceFolderPath = $ScriptLocation;
+    repositoryFolderPath = "FolderName";
+    branch = "main";
+    versionPattern = "ScriptVersion";
+}
+    $isLatestVersion = $(Test-GitHubLatestVersion @gitHubLatestVersionParameters)
+    if($isLatestVersion) {
+        Write-Host "Script was checked and updated to the latest version"
+    }
+.EXAMPLE
+    $gitHubLatestVersionParameters = @{
+    currentVersion = $ScriptVersion;
+    repositoryName = "MyUser/MyRepo";
+    scriptVersionFileName = "MyScript.ps1";
+    sourceFolderPath = $ScriptLocation;
+}
+    $isLatestVersion = $(Test-GitHubLatestVersion @gitHubLatestVersionParameters -TestOnly)
+    if($isLatestVersion) {
+        Write-Host "Script was checked to the latest version"
+    }    
 #>
 [CmdletBinding()]
 param (
