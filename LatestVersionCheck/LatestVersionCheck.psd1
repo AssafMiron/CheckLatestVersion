@@ -12,7 +12,7 @@
 RootModule = '.\LatestVersionCheck.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1'
+ModuleVersion = '1.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,13 +24,13 @@ GUID = '066846e1-3e61-4688-8ed3-4506ba09de7a'
 Author = 'Assaf Miron'
 
 # Company or vendor of this module
-# CompanyName = 'Unknown'
+CompanyName = 'Unknown'
 
 # Copyright statement for this module
 Copyright = '(c) 2021 Assaf Miron. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A module to check the latest version from a GitHub repository'
+Description = 'A module to check the latest version of a script from a GitHub repository'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'
@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = 'PSModule','GitHub','Test script version'
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/AssafMiron/CheckLatestVersion/blob/main/LICENSE'
@@ -107,7 +107,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'Initial version of a module to check the latest script version of a PS script hosted in GitHub'
 
         # External dependent modules of this module
         # ExternalModuleDependencies = ''
