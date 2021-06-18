@@ -13,7 +13,7 @@ $ScriptLocation = Split-Path -Parent $ScriptFullPath
 $ScriptVersion = "1.0"
 
 Write-Host "Starting the script"
-Import-Module .\LatestVersionCheck.psd1
+Import-Module .\LatestVersionCheck\LatestVersionCheck.psd1
 
 $gitHubLatestVersionParameters = @{
     currentVersion = $ScriptVersion;
